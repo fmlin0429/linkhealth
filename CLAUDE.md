@@ -93,19 +93,41 @@ npm run type-check
 
 ## Environment Variables Required
 
+### Phase 1 (Current)
 ```
-# OpenAI
-OPENAI_API_KEY=
+# Google Gemini API (required for chatbot)
+GEMINI_API_KEY=your_gemini_api_key_here
+```
 
+### Phase 2 (Future)
+```
 # Firebase (Phase 2)
 NEXT_PUBLIC_FIREBASE_API_KEY=
 NEXT_PUBLIC_FIREBASE_AUTH_DOMAIN=
 NEXT_PUBLIC_FIREBASE_PROJECT_ID=
+```
 
+### Phase 3 (Future)
+```
 # Stripe (Phase 3)
 STRIPE_SECRET_KEY=
 NEXT_PUBLIC_STRIPE_PUBLISHABLE_KEY=
 ```
+
+## Deployment Setup
+
+### Local Development
+1. Copy `.env.example` to `.env.local`
+2. Add your Gemini API key to `.env.local`
+3. Run `npm run dev`
+
+### Vercel Deployment
+1. Push code to GitHub repository
+2. Import project in Vercel dashboard
+3. Add environment variable in Vercel:
+   - Key: `GEMINI_API_KEY`
+   - Value: `your_actual_gemini_api_key`
+4. Deploy
 
 ## Architecture
 
