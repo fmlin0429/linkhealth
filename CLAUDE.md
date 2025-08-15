@@ -20,7 +20,7 @@ Creating a Forest Lin AI agent chatbot service similar to https://www.qrate.one/
 
 ## Development Phases
 
-### Phase 1: Landing Page with AI Chatbot ✅ Current Phase
+### Phase 1: Landing Page with AI Chatbot ✅ Completed
 **Objective**: Build and deploy a landing page with an AI chatbot that behaves as Forest Lin
 
 **Requirements**:
@@ -42,7 +42,7 @@ Creating a Forest Lin AI agent chatbot service similar to https://www.qrate.one/
 - ✅ Responsive design working on all devices
 - ✅ Clean, professional UI/UX
 
-### Phase 2: User Authentication & Database (Pending)
+### Phase 2: User Authentication & Database ✅ Current Phase
 **Objective**: Add Firebase authentication and user data storage
 
 **Requirements**:

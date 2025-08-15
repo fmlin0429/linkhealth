@@ -2,12 +2,22 @@
 
 import { useState, useRef, useEffect } from 'react'
 import { Message, ChatResponse } from '@/types/chat'
+import { useAuth } from '@/contexts/AuthContext'
 
 export default function Chatbot() {
+  const { user } = useAuth();
+  
+  const getInitialMessage = () => {
+    if (user) {
+      return `Hi ${user.displayName || user.email}! I'm Forest Lin's AI agent. Great to have you back! I'm here to chat about technology, business, and innovation. What would you like to discuss today?`;
+    }
+    return "Hi! I'm Forest Lin's AI agent. I'm here to chat about technology, business, and innovation. What would you like to discuss?";
+  };
+
   const [messages, setMessages] = useState<Message[]>([
     {
       id: '1',
-      content: "Hi! I'm Forest Lin's AI agent. I'm here to chat about technology, business, and innovation. What would you like to discuss?",
+      content: getInitialMessage(),
       role: 'assistant',
       timestamp: new Date(),
     }
@@ -23,6 +33,16 @@ export default function Chatbot() {
   useEffect(() => {
     scrollToBottom()
   }, [messages])
+
+  useEffect(() => {
+    // Update initial message when user authentication changes
+    setMessages([{
+      id: '1',
+      content: getInitialMessage(),
+      role: 'assistant',
+      timestamp: new Date(),
+    }])
+  }, [user])
 
   const sendMessage = async () => {
     if (!input.trim() || isLoading) return
@@ -49,7 +69,14 @@ export default function Chatbot() {
         headers: {
           'Content-Type': 'application/json',
         },
-        body: JSON.stringify({ messages: chatMessages }),
+        body: JSON.stringify({ 
+          messages: chatMessages,
+          userInfo: user ? {
+            displayName: user.displayName,
+            email: user.email,
+            uid: user.uid
+          } : null
+        }),
       })
 
       const data: ChatResponse = await response.json()

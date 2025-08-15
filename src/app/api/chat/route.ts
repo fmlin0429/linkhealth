@@ -5,8 +5,9 @@ export async function POST(request: NextRequest) {
   try {
     console.log('API route called');
     
-    const { messages } = await request.json();
+    const { messages, userInfo } = await request.json();
     console.log('Received messages:', messages);
+    console.log('User info:', userInfo);
 
     if (!messages || !Array.isArray(messages)) {
       console.log('Invalid messages format');
@@ -16,9 +17,13 @@ export async function POST(request: NextRequest) {
       );
     }
 
-    console.log('Calling OpenAI...');
-    const response = await getChatCompletion(messages);
-    console.log('OpenAI response:', response);
+    console.log('Calling Gemini...');
+    const response = await getChatCompletion(
+      messages,
+      userInfo?.displayName,
+      userInfo?.email
+    );
+    console.log('Gemini response:', response);
 
     return NextResponse.json({ message: response });
   } catch (error) {

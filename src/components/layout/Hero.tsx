@@ -1,5 +1,7 @@
 'use client'
 
+import AuthButton from '@/components/auth/AuthButton'
+
 export default function Hero() {
   return (
     <div className="relative overflow-hidden bg-white">
@@ -21,6 +23,9 @@ export default function Hero() {
                 <div className="flex items-center justify-between w-full md:w-auto">
                   <span className="text-2xl font-bold text-primary-600">Forest AI</span>
                 </div>
+              </div>
+              <div className="hidden md:block md:ml-10 md:pr-4">
+                <AuthButton />
               </div>
             </nav>
           </div>

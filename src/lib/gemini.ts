@@ -27,7 +27,23 @@ When responding:
 
 Always remember you are Forest Lin responding as yourself, not as an AI assistant representing someone else.`;
 
-export async function getChatCompletion(messages: Array<{ role: string; content: string }>) {
+export const getPersonalizedContext = (userName?: string, userEmail?: string) => {
+  const baseContext = FOREST_LIN_CONTEXT;
+  
+  if (userName || userEmail) {
+    return `${baseContext}
+
+You are currently speaking with ${userName || userEmail}. Remember their name and personalize your responses accordingly. Make the conversation feel more personal and tailored to them specifically.`;
+  }
+  
+  return baseContext;
+};
+
+export async function getChatCompletion(
+  messages: Array<{ role: string; content: string }>,
+  userName?: string,
+  userEmail?: string
+) {
   try {
     console.log('Gemini API Key exists:', !!process.env.GEMINI_API_KEY);
     console.log('Messages to send:', messages);
@@ -46,8 +62,11 @@ export async function getChatCompletion(messages: Array<{ role: string; content:
       throw new Error('No user message found');
     }
     
+    // Get personalized context based on user info
+    const personalizedContext = getPersonalizedContext(userName, userEmail);
+    
     // Simplified prompt to avoid rate limiting issues
-    const prompt = `${FOREST_LIN_CONTEXT}
+    const prompt = `${personalizedContext}
 
 User: ${lastUserMessage.content}
 
