@@ -6,18 +6,11 @@ import { useAuth } from '@/contexts/AuthContext'
 
 export default function Chatbot() {
   const { user } = useAuth();
-  
-  const getInitialMessage = () => {
-    if (user) {
-      return `Hi ${user.displayName || user.email}! I'm Forest Lin's AI agent. Great to have you back! I'm here to chat about technology, business, and innovation. What would you like to discuss today?`;
-    }
-    return "Hi! I'm Forest Lin's AI agent. I'm here to chat about technology, business, and innovation. What would you like to discuss?";
-  };
 
   const [messages, setMessages] = useState<Message[]>([
     {
       id: '1',
-      content: getInitialMessage(),
+      content: "Hi! I'm Forest Lin's AI agent. I'm here to chat about technology, business, and innovation. What would you like to discuss?",
       role: 'assistant',
       timestamp: new Date(),
     }
@@ -36,6 +29,13 @@ export default function Chatbot() {
 
   useEffect(() => {
     // Update initial message when user authentication changes
+    const getInitialMessage = () => {
+      if (user) {
+        return `Hi ${user.displayName || user.email}! I'm Forest Lin's AI agent. Great to have you back! I'm here to chat about technology, business, and innovation. What would you like to discuss today?`;
+      }
+      return "Hi! I'm Forest Lin's AI agent. I'm here to chat about technology, business, and innovation. What would you like to discuss?";
+    };
+
     setMessages([{
       id: '1',
       content: getInitialMessage(),
