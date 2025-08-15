@@ -82,7 +82,7 @@ export const AuthProvider: React.FC<{ children: React.ReactNode }> = ({ children
       const userProfile = await createUserProfile(result.user);
       setUser(userProfile);
       console.log('User profile created:', userProfile);
-    } catch (error) {
+    } catch (error: any) {
       console.error('Detailed error signing in with Google:', error);
       console.error('Error code:', error?.code);
       console.error('Error message:', error?.message);
@@ -97,7 +97,7 @@ export const AuthProvider: React.FC<{ children: React.ReactNode }> = ({ children
       setError(null);
       await firebaseSignOut(auth);
       setUser(null);
-    } catch (error) {
+    } catch (error: any) {
       console.error('Error signing out:', error);
       setError('Failed to sign out. Please try again.');
     }
@@ -109,7 +109,7 @@ export const AuthProvider: React.FC<{ children: React.ReactNode }> = ({ children
         try {
           const userProfile = await createUserProfile(firebaseUser);
           setUser(userProfile);
-        } catch (error) {
+        } catch (error: any) {
           console.error('Error creating user profile:', error);
           setError('Failed to load user profile.');
         }
