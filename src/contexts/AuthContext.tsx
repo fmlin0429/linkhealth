@@ -66,12 +66,27 @@ export const AuthProvider: React.FC<{ children: React.ReactNode }> = ({ children
     try {
       setError(null);
       setLoading(true);
+      console.log('Attempting Google sign in...');
+      console.log('Auth object:', auth);
+      console.log('Google provider:', googleProvider);
+      console.log('Firebase config check:', {
+        apiKey: process.env.NEXT_PUBLIC_FIREBASE_API_KEY?.slice(0, 10) + '...',
+        authDomain: process.env.NEXT_PUBLIC_FIREBASE_AUTH_DOMAIN,
+        projectId: process.env.NEXT_PUBLIC_FIREBASE_PROJECT_ID,
+        appId: process.env.NEXT_PUBLIC_FIREBASE_APP_ID?.slice(0, 20) + '...'
+      });
+      
       const result = await signInWithPopup(auth, googleProvider);
+      console.log('Sign in result:', result);
+      
       const userProfile = await createUserProfile(result.user);
       setUser(userProfile);
+      console.log('User profile created:', userProfile);
     } catch (error) {
-      console.error('Error signing in with Google:', error);
-      setError('Failed to sign in with Google. Please try again.');
+      console.error('Detailed error signing in with Google:', error);
+      console.error('Error code:', error?.code);
+      console.error('Error message:', error?.message);
+      setError(`Failed to sign in with Google: ${error?.message || error?.code || 'Unknown error'}`);
     } finally {
       setLoading(false);
     }
