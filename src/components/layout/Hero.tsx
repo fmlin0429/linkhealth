@@ -1,7 +1,6 @@
 'use client'
 
 import AuthButton from '@/components/auth/AuthButton'
-import DebugAuth from '@/components/auth/DebugAuth'
 
 export default function Hero() {
   return (
@@ -66,7 +65,6 @@ export default function Hero() {
               </div>
             </div>
           </main>
-          <DebugAuth />
         </div>
       </div>
       <div className="lg:absolute lg:inset-y-0 lg:right-0 lg:w-1/2">
