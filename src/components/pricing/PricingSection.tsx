@@ -52,9 +52,10 @@ export default function PricingSection() {
           alert('Failed to redirect to checkout. Please try again.');
         }
       }
-    } catch (error) {
+    } catch (error: any) {
       console.error('Checkout error:', error);
-      alert('An error occurred. Please try again.');
+      console.error('Error details:', error.message || error);
+      alert(`An error occurred: ${error.message || 'Please try again.'}`);
     } finally {
       setLoading(false);
     }

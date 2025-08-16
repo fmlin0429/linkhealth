@@ -12,6 +12,16 @@ export async function POST(request: NextRequest) {
       );
     }
 
+    // Construct proper URLs
+    const origin = request.headers.get('origin');
+    const host = request.headers.get('host');
+    const protocol = origin?.includes('https') ? 'https' : 'http';
+    const baseUrl = origin || `${protocol}://${host}`;
+
+    console.log('Origin:', origin);
+    console.log('Host:', host); 
+    console.log('Base URL:', baseUrl);
+
     // Create Stripe Checkout Session
     const session = await stripe.checkout.sessions.create({
       mode: 'subscription',
@@ -26,8 +36,8 @@ export async function POST(request: NextRequest) {
       metadata: {
         userId: userId,
       },
-      success_url: `${request.headers.get('origin')}/success?session_id={CHECKOUT_SESSION_ID}`,
-      cancel_url: `${request.headers.get('origin')}/pricing`,
+      success_url: `${baseUrl}/success?session_id={CHECKOUT_SESSION_ID}`,
+      cancel_url: `${baseUrl}/pricing`,
       subscription_data: {
         metadata: {
           userId: userId,
@@ -36,10 +46,12 @@ export async function POST(request: NextRequest) {
     });
 
     return NextResponse.json({ sessionId: session.id });
-  } catch (error) {
+  } catch (error: any) {
     console.error('Error creating checkout session:', error);
+    console.error('Error message:', error.message);
+    console.error('Error type:', error.type);
     return NextResponse.json(
-      { error: 'Failed to create checkout session' },
+      { error: `Failed to create checkout session: ${error.message || 'Unknown error'}` },
       { status: 500 }
     );
   }
