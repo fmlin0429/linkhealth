@@ -6,7 +6,7 @@ import { AuthProvider } from '@/contexts/AuthContext'
 const inter = Inter({ subsets: ['latin'] })
 
 export const metadata: Metadata = {
-  title: 'LinkHealth - Healthcare AI Assistant',
+  title: 'LinkHealth - Healthcare AI Assistant', // Updated branding
   description: 'Your intelligent healthcare companion. Get personalized health insights and connect with professionals.',
   icons: {
     icon: '/favicon.ico',
