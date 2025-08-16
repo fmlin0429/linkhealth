@@ -17,8 +17,11 @@ export default function PricingSection() {
 
     setLoading(true);
     try {
-      // Call Stripe checkout
-      const response = await fetch('/api/stripe/create-checkout-session', {
+      console.log('Starting checkout for price:', priceId);
+      console.log('User:', { uid: user.uid, email: user.email });
+      
+      // Call Stripe checkout  
+      const response = await fetch('/api/stripe/create-checkout-session?t=' + Date.now(), {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',
@@ -30,7 +33,19 @@ export default function PricingSection() {
         }),
       });
 
-      const { sessionId, error } = await response.json();
+      console.log('API Response status:', response.status);
+      console.log('API Response ok:', response.ok);
+
+      if (!response.ok) {
+        const errorText = await response.text();
+        console.error('API Error Response:', errorText);
+        throw new Error(`API request failed: ${response.status} ${errorText}`);
+      }
+
+      const responseData = await response.json();
+      console.log('API Response data:', responseData);
+      
+      const { sessionId, error } = responseData;
 
       if (error) {
         console.error('Error creating checkout session:', error);
@@ -39,18 +54,32 @@ export default function PricingSection() {
       }
 
       // Redirect to Stripe Checkout
-      const stripe = await import('@/lib/stripe').then(m => m.stripePromise);
-      const stripeInstance = await stripe;
+      const { loadStripe } = await import('@stripe/stripe-js');
+      const publishableKey = process.env.NEXT_PUBLIC_STRIPE_PUBLISHABLE_KEY;
       
-      if (stripeInstance) {
-        const { error } = await stripeInstance.redirectToCheckout({
-          sessionId,
-        });
+      console.log('Publishable key check:', publishableKey ? 'Available' : 'Missing');
+      
+      if (!publishableKey) {
+        console.error('Stripe publishable key not available');
+        alert('Payment system not configured. Please check environment variables.');
+        return;
+      }
+      
+      const stripeInstance = await loadStripe(publishableKey);
+      
+      if (!stripeInstance) {
+        console.error('Stripe instance failed to load');
+        alert('Payment system not available. Please check your configuration.');
+        return;
+      }
 
-        if (error) {
-          console.error('Stripe redirect error:', error);
-          alert('Failed to redirect to checkout. Please try again.');
-        }
+      const { error: redirectError } = await stripeInstance.redirectToCheckout({
+        sessionId,
+      });
+
+      if (redirectError) {
+        console.error('Stripe redirect error:', redirectError);
+        alert('Failed to redirect to checkout. Please try again.');
       }
     } catch (error: any) {
       console.error('Checkout error:', error);
