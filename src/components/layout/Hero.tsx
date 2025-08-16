@@ -21,7 +21,10 @@ export default function Hero() {
             <nav className="relative flex items-center justify-between sm:h-10 lg:justify-start" aria-label="Global">
               <div className="flex items-center flex-grow flex-shrink-0 lg:flex-grow-0">
                 <div className="flex items-center justify-between w-full md:w-auto">
-                  <span className="text-2xl font-bold text-primary-600">Forest AI</span>
+                  <div className="flex items-center space-x-2">
+                    <img src="/images/heart.png" alt="LinkHealth Logo" className="h-8 w-8" />
+                    <span className="text-2xl font-bold text-primary-600">LinkHealth</span>
+                  </div>
                 </div>
               </div>
               <div className="hidden md:block md:ml-10 md:pr-4">
@@ -33,12 +36,12 @@ export default function Hero() {
           <main className="mx-auto mt-10 max-w-7xl px-4 sm:mt-12 sm:px-6 md:mt-16 lg:mt-20 lg:px-8 xl:mt-28">
             <div className="sm:text-center lg:text-left">
               <h1 className="text-4xl font-bold tracking-tight text-gray-900 sm:text-5xl md:text-6xl">
-                <span className="block xl:inline">Chat with</span>{' '}
-                <span className="block text-primary-600 xl:inline">Forest Lin AI</span>
+                <span className="block xl:inline">Welcome to</span>{' '}
+                <span className="block text-primary-600 xl:inline">LinkHealth</span>
               </h1>
               <p className="mt-3 text-base text-gray-500 sm:mt-5 sm:text-lg sm:max-w-xl sm:mx-auto md:mt-5 md:text-xl lg:mx-0">
-                Experience intelligent conversations with an AI agent trained on Forest Lin&apos;s expertise. 
-                Get insights on technology, business, and innovation from a seasoned professional.
+                Your intelligent healthcare assistant powered by AI. 
+                Get personalized health insights, connect with professionals, and manage your wellness journey.
               </p>
               <div className="mt-5 sm:mt-8 sm:flex sm:justify-center lg:justify-start">
                 <div className="rounded-md shadow">
@@ -49,18 +52,19 @@ export default function Hero() {
                     }}
                     className="flex w-full items-center justify-center rounded-md border border-transparent bg-primary-600 px-8 py-3 text-base font-medium text-white hover:bg-primary-700 md:py-4 md:px-10 md:text-lg"
                   >
-                    Start Chatting
+                    Get Started
                   </button>
                 </div>
                 <div className="mt-3 sm:mt-0 sm:ml-3">
-                  <a
-                    href="https://www.linkedin.com/in/forest-lin-7672186/"
-                    target="_blank"
-                    rel="noopener noreferrer"
+                  <button
+                    onClick={() => {
+                      const chatSection = document.getElementById('chat-section');
+                      chatSection?.scrollIntoView({ behavior: 'smooth' });
+                    }}
                     className="flex w-full items-center justify-center rounded-md border border-transparent bg-primary-100 px-8 py-3 text-base font-medium text-primary-700 hover:bg-primary-200 md:py-4 md:px-10 md:text-lg"
                   >
-                    View LinkedIn
-                  </a>
+                    Learn More
+                  </button>
                 </div>
               </div>
             </div>
@@ -68,15 +72,20 @@ export default function Hero() {
         </div>
       </div>
       <div className="lg:absolute lg:inset-y-0 lg:right-0 lg:w-1/2">
-        <div className="h-56 w-full bg-gradient-to-r from-primary-400 to-primary-600 sm:h-72 md:h-96 lg:h-full lg:w-full flex items-center justify-center">
-          <div className="text-center text-white">
-            <div className="w-32 h-32 mx-auto mb-4 rounded-full bg-white/20 flex items-center justify-center">
-              <svg className="w-16 h-16" fill="currentColor" viewBox="0 0 20 20">
-                <path fillRule="evenodd" d="M18 10a8 8 0 11-16 0 8 8 0 0116 0zm-6-3a2 2 0 11-4 0 2 2 0 014 0zm-2 4a5 5 0 00-4.546 2.916A5.986 5.986 0 0010 16a5.986 5.986 0 004.546-2.084A5 5 0 0010 11z" clipRule="evenodd" />
-              </svg>
+        <div className="h-56 w-full sm:h-72 md:h-96 lg:h-full lg:w-full relative">
+          <img 
+            src="/images/healthcare-bg.jpg" 
+            alt="Healthcare Professional" 
+            className="absolute inset-0 w-full h-full object-cover"
+          />
+          <div className="absolute inset-0 bg-primary-600/70 flex items-center justify-center">
+            <div className="text-center text-white">
+              <div className="w-32 h-32 mx-auto mb-4 rounded-full bg-white/20 flex items-center justify-center">
+                <img src="/images/heart.png" alt="LinkHealth" className="w-16 h-16" />
+              </div>
+              <h3 className="text-xl font-semibold">Healthcare AI Assistant</h3>
+              <p className="mt-2 text-primary-100">Connecting you to better health outcomes</p>
             </div>
-            <h3 className="text-xl font-semibold">AI-Powered Assistant</h3>
-            <p className="mt-2 text-primary-100">Available 24/7 for intelligent conversations</p>
           </div>
         </div>
       </div>

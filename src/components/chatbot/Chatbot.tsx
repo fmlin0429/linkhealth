@@ -10,7 +10,7 @@ export default function Chatbot() {
   const [messages, setMessages] = useState<Message[]>([
     {
       id: '1',
-      content: "Hi! I'm Forest Lin's AI agent. I'm here to chat about technology, business, and innovation. What would you like to discuss?",
+      content: "Hi! I'm LinkHealth AI, your healthcare companion. I'm here to help with health information, wellness guidance, and connecting you with healthcare resources. How can I assist you today?",
       role: 'assistant',
       timestamp: new Date(),
     }
@@ -31,9 +31,9 @@ export default function Chatbot() {
     // Update initial message when user authentication changes
     const getInitialMessage = () => {
       if (user) {
-        return `Hi ${user.displayName || user.email}! I'm Forest Lin's AI agent. Great to have you back! I'm here to chat about technology, business, and innovation. What would you like to discuss today?`;
+        return `Hi ${user.displayName || user.email}! I'm LinkHealth AI, your healthcare companion. Great to have you back! I'm here to help with health information, wellness guidance, and connecting you with healthcare resources. How can I assist you today?`;
       }
-      return "Hi! I'm Forest Lin's AI agent. I'm here to chat about technology, business, and innovation. What would you like to discuss?";
+      return "Hi! I'm LinkHealth AI, your healthcare companion. I'm here to help with health information, wellness guidance, and connecting you with healthcare resources. How can I assist you today?";
     };
 
     setMessages([{
@@ -119,10 +119,10 @@ export default function Chatbot() {
       <div className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8">
         <div className="text-center mb-8">
           <h2 className="text-3xl font-bold text-gray-900 sm:text-4xl">
-            Chat with Forest Lin AI
+            Chat with LinkHealth AI
           </h2>
           <p className="mt-4 text-lg text-gray-600">
-            Ask questions about technology, business strategy, or career advice
+            Ask questions about health, wellness, and healthcare resources
           </p>
         </div>
 

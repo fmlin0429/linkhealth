@@ -6,8 +6,13 @@ import { AuthProvider } from '@/contexts/AuthContext'
 const inter = Inter({ subsets: ['latin'] })
 
 export const metadata: Metadata = {
-  title: 'Forest Lin AI Agent - AI as a Service',
-  description: 'Chat with Forest Lin AI Agent - Professional AI assistant service',
+  title: 'LinkHealth - Healthcare AI Assistant',
+  description: 'Your intelligent healthcare companion. Get personalized health insights and connect with professionals.',
+  icons: {
+    icon: '/favicon.ico',
+    shortcut: '/favicon.png',
+    apple: '/favicon.png',
+  },
 }
 
 export default function RootLayout({
